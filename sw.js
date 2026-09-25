@@ -1,4 +1,4 @@
-const CACHE = 'freshfield-magnesium-chfa-v3';
+const CACHE = 'freshfield-magnesium-chfa-v4';
 const PAGE = new URL('./', self.registration.scope).href;
 const PAGE_URL = new URL(PAGE);
 
@@ -16,7 +16,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  if (event.request.mode !== 'navigate' || url.origin !== PAGE_URL.origin || url.pathname !== PAGE_URL.pathname) return;
+  if (event.request.mode !== 'navigate' || url.origin !== PAGE_URL.origin || (url.pathname !== PAGE_URL.pathname && url.pathname !== PAGE_URL.pathname + 'index.html')) return;
   event.respondWith((async () => {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 2500);

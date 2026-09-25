@@ -1,0 +1,92 @@
+from html.parser import HTMLParser
+from pathlib import Path
+import re
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+TEMPLATE = (ROOT / 'template.html').read_text()
+
+
+class Elements(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.items = []
+
+    def handle_starttag(self, tag, attrs):
+        self.items.append((tag, dict(attrs)))
+
+
+class DemoContract(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        p = Elements()
+        p.feed(TEMPLATE)
+        cls.items = p.items
+
+    def element(self, element_id):
+        found = [(tag, attrs) for tag, attrs in self.items if attrs.get('id') == element_id]
+        self.assertEqual(len(found), 1, f'Expected exactly one #{element_id}')
+        return found[0]
+
+    def test_primary_action_opens_the_guided_reveal(self):
+        tag, attrs = self.element('reveal-start')
+        self.assertEqual(tag, 'button')
+        self.assertEqual(attrs['type'], 'button')
+        self.assertIn('Show me what', TEMPLATE)
+        self.assertIn("getElementById('reveal-start').addEventListener('click'", TEMPLATE)
+        self.element('reveal')
+        self.assertRegex(TEMPLATE, r'\.reveal-start\s*\{[^}]*min-height:\s*(?:6[0-9]|[7-9][0-9])px')
+
+    def test_real_label_reveal_discloses_oxide_and_source(self):
+        self.element('reveal-turn')
+        self.element('reveal-label')
+        visible_text = re.sub(r'<[^>]+>', '', TEMPLATE)
+        self.assertIn('Magnesium (magnesium bis-glycinate, magnesium oxide)', visible_text)
+        self.assertIn('https://canprev.ca/products/magnesium-bis-glycinate-200-gentle-3-2/', TEMPLATE)
+        self.assertIn('disclosed', TEMPLATE.lower())
+        self.assertNotIn('hidden oxide', TEMPLATE.lower())
+
+    def test_balchem_explains_original_and_buffered_without_equating_traacs_to_unbuffered(self):
+        self.element('reveal-albion')
+        self.assertIn('Original', TEMPLATE)
+        self.assertIn('Buffered', TEMPLATE)
+        self.assertIn('https://balchem.com/hnh/resources/which-magnesium-to-choose/', TEMPLATE)
+        self.assertIn('https://balchem.com/hnh/products/mn/mg/magnesium-bisglycinate-chelate/', TEMPLATE)
+        self.assertIn('TRAACS™', TEMPLATE)
+        self.assertIn('trademarks of Balchem Corporation or its subsidiaries', TEMPLATE)
+
+    def test_nonaccusatory_copy_and_footer_attribution(self):
+        self.assertNotIn('oxide padding', TEMPLATE.lower())
+        self.assertNotIn('What if it says TRAACS?', TEMPLATE)
+        footer = re.search(r'<footer>(.*?)</footer>', TEMPLATE, flags=re.S)
+        assert footer is not None
+        self.assertIn('Albion™ and TRAACS™ are trademarks of Balchem Corporation or its subsidiaries', footer.group(1))
+        meta = re.search(r'<meta name="description" content="(.*?)">', TEMPLATE)
+        assert meta is not None
+        self.assertNotIn('TRAACS', meta.group(1))
+
+    def test_freshfield_is_product_proof_not_a_fill_estimate(self):
+        self.element('reveal-freshfield')
+        self.assertIn('121 mg', TEMPLATE)
+        self.assertIn('two capsules', TEMPLATE.lower())
+        self.assertIn('unbuffered', TEMPLATE.lower())
+        self.assertNotIn('It depends on the fill', TEMPLATE)
+        self.assertNotIn('likely pure', TEMPLATE.lower())
+        self.assertNotIn('4x better', TEMPLATE.lower())
+
+    def test_calculator_defaults_to_unknown_200mg_example(self):
+        self.element('elemental')
+        self.assertRegex(TEMPLATE, r'id="elemental" value="200"')
+        self.assertNotIn('id="freshfield-example"', TEMPLATE)
+        self.assertIn('not a test of another product', TEMPLATE.lower())
+
+    def test_offline_and_seller_led_close_remain(self):
+        self.assertIn("serviceWorker.register('./sw.js')", TEMPLATE)
+        self.element('order-button')
+        self.assertIn('seller', TEMPLATE.lower())
+        self.assertNotIn('<form action=', TEMPLATE.lower())
+        self.assertFalse(re.search(r'(?i)price=|credit.card|checkout', TEMPLATE))
+
+
+if __name__ == '__main__':
+    unittest.main()

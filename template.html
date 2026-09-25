@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0F2A3A">
-  <meta name="description" content="Freshfield Magnesium Bisglycinate for retailers. Explore our unbuffered formula and learn how to read the magnesium math on a label.">
+  <meta name="description" content="A 30-second magnesium label-reading demo for retailers. Discover the difference between elemental dose, buffered chelate and Freshfield's unbuffered magnesium bisglycinate.">
   <title>Freshfield Magnesium | CHFA NOW Toronto</title>
   <style>
     @font-face { font-family: FreshfieldDisplay; src: url(data:font/woff2;base64,{{FONT_DATA}}) format('woff2'); font-display: swap; }
@@ -21,8 +21,8 @@
     .mast img { width:225px; height:45px; display:block; object-fit:contain; }
     .mast-note { font-size:.72rem; font-weight:700; text-align:right; letter-spacing:.16em; text-transform:uppercase; }
     .mini-nav { display:flex; gap:22px; padding:0 max(24px,calc((100vw - 1240px)/2)); background:#183548; color:var(--cream); font-size:.8rem; font-weight:650; letter-spacing:.04em; }
-    .mini-nav a { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; border-bottom:1px solid transparent; }
-    .mini-nav a:hover,.mini-nav a:focus-visible { border-color:var(--gold); }
+    .mini-nav a,.mini-nav button { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; border:0; border-bottom:1px solid transparent; background:transparent; color:inherit; padding:0; font:inherit; font-weight:inherit; letter-spacing:inherit; cursor:pointer; }
+    .mini-nav a:hover,.mini-nav a:focus-visible,.mini-nav button:hover,.mini-nav button:focus-visible { border-color:var(--gold); }
     .hero { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); min-height:482px; background:var(--navy); color:var(--cream); overflow:hidden; }
     .hero-copy { max-width:760px; width:100%; margin-left:auto; padding:clamp(30px,4vw,56px) clamp(26px,5vw,74px) 34px max(24px,calc((100vw - 1240px)/2)); display:flex; flex-direction:column; justify-content:center; }
     .hero .eyebrow,.order .eyebrow { color:#9bdbd5; }
@@ -34,13 +34,41 @@
     .btn:hover { transform:translateY(-2px); }
     .btn-primary { background:var(--cream); color:var(--navy); }
     .btn-outline { color:var(--cream); border-color:#a3b4b3; background:transparent; }
+    .reveal-start { min-height:70px; padding:16px 30px; font-size:1.15rem; box-shadow:0 8px 0 #050f18; text-align:center; }
+    .reveal-start:active { transform:translateY(4px); box-shadow:0 4px 0 #050f18; }
     .hero-facts { display:flex; flex-wrap:wrap; column-gap:24px; row-gap:4px; margin-top:25px; padding-top:16px; border-top:1px solid #5c7480; color:var(--cream); font-size:.89rem; }
     .hero-facts strong { color:#fff; font-weight:750; }
     .hero-facts a { text-underline-offset:3px; }
     .hero-photo { position:relative; min-height:350px; }
     .hero-photo img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; object-position:center 45%; }
-    .hero-photo:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--navy) 0%,transparent 27%),linear-gradient(0deg,#081e2ce6,transparent 52%); }
-    .photo-tag { position:absolute; bottom:26px; right:30px; z-index:1; color:#fff; font-family:FreshfieldDisplay,"Arial Narrow",sans-serif; font-size:clamp(1.65rem,2.8vw,2.65rem); line-height:1; text-transform:uppercase; text-align:right; max-width:10ch; text-shadow:0 2px 12px #081e2c,0 1px 3px #081e2c; }
+    .hero-photo:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--navy) 0%,transparent 27%); }
+    .reveal { background:var(--navy2); color:var(--cream); padding:clamp(24px,4vw,44px) 24px clamp(44px,5vw,66px); scroll-margin-top:12px; min-height:100svh; }
+    .reveal[hidden],.reveal-stage[hidden] { display:none; }
+    .reveal-shell { max-width:1240px; margin:auto; }
+    .reveal-top { display:flex; justify-content:space-between; gap:20px; align-items:center; padding-bottom:18px; border-bottom:1px solid #65848b; }
+    .reveal-top .eyebrow { color:#a8e1dd; }
+    .reveal-top button { min-height:44px; border:0; background:transparent; color:#fff; font-weight:750; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+    .reveal-stage { display:grid; grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr); gap:clamp(26px,5vw,74px); align-items:center; min-height:425px; padding:28px 0 0; }
+    .reveal-stage h2 { font-size:clamp(2.6rem,5.4vw,5.3rem); margin:0 0 18px; max-width:13ch; }
+    .reveal-stage p { max-width:48ch; font-size:1.08rem; }
+    .reveal-stage .btn { background:var(--gold); color:var(--navy); margin:12px 0; min-height:58px; font-size:1rem; }
+    .reveal-stage .caption { font-size:.86rem; color:#c8d7d4; }
+    .reveal-stage a { text-underline-offset:3px; }
+    .label-card { color:var(--ink); background:var(--paper); border:8px solid #fff; padding:clamp(24px,4vw,48px); box-shadow:8px 8px 0 #091d2a; margin-right:8px; }
+    .label-card .micro { display:block; font-size:.72rem; letter-spacing:.18em; font-weight:800; text-transform:uppercase; }
+    .label-card .big { display:block; font-family:FreshfieldDisplay,"Arial Narrow",sans-serif; font-size:clamp(4.6rem,11vw,9rem); line-height:1; color:var(--navy); margin:12px 0 4px; }
+    .label-card .sub { font-size:clamp(1rem,2vw,1.4rem); font-weight:750; }
+    .label-card .divider { height:5px; background:var(--ink); margin:20px 0; }
+    .label-card .ingredient { font-weight:800; font-size:clamp(1.15rem,2.3vw,1.7rem); line-height:1.3; }
+    .label-card .fine { font-size:.88rem; margin-bottom:0; }
+    .label-card .highlight { background:var(--gold); box-decoration-break:clone; -webkit-box-decoration-break:clone; padding:0 3px; }
+    .supplier-lines { display:grid; gap:0; margin:0; padding:0; list-style:none; }
+    .supplier-lines li { border-top:1px solid #728c94; padding:18px 0; }
+    .supplier-lines strong { display:block; color:#fff; font-size:1.3rem; }
+    .supplier-lines span { display:block; color:#d2e0dd; margin-top:3px; }
+    .freshfield-proof .big { font-size:clamp(4.1rem,9vw,7.6rem); }
+    .freshfield-proof .per-cap { display:block; font-size:1.05rem; font-weight:800; color:var(--navy); margin-top:8px; }
+    .freshfield-proof .source-tag { font-size:.84rem; color:#40535d; font-weight:750; margin-top:14px; }
     .story { display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); gap:clamp(25px,5vw,75px); max-width:1240px; margin:auto; padding:clamp(45px,6vw,75px) 24px; }
     .story .eyebrow,.calc-intro .eyebrow { color:#285481; }
     .story h2,.calc-intro h2,.order h2 { font-size:clamp(2.4rem,4vw,4.3rem); margin:12px 0 0; }
@@ -103,54 +131,92 @@
     dialog h3 { font-size:1.5rem; margin:0 0 12px; }
     dialog p { margin:0 0 20px; }
     dialog button { min-height:44px; padding:8px 22px; border:0; border-radius:30px; color:#fff; background:var(--navy); cursor:pointer; }
-    @media(max-width:780px) { .mast img { width:170px; height:34px; } .mast-note { font-size:.63rem; } .hero { grid-template-columns:1fr; } .hero-copy { padding:38px 24px 28px; max-width:none; } .hero h1 { font-size:clamp(3.2rem,10vw,5.1rem); } .hero-photo { min-height:260px; } .hero-photo:after { background:linear-gradient(0deg,#081e2ce6,transparent 62%); } .story,.calc-grid,.order-inner { grid-template-columns:1fr; } .story { gap:26px; } .calc-grid { gap:25px; } .order h2 { max-width:none; } .result-jump { display:inline-flex; align-items:center; } }
+    @media(max-width:780px) { .mast img { width:170px; height:34px; } .mast-note { font-size:.63rem; } .hero { grid-template-columns:1fr; } .hero-copy { padding:38px 24px 28px; max-width:none; } .hero h1 { font-size:clamp(3.2rem,10vw,5.1rem); } .hero-photo { min-height:260px; } .hero-photo:after { background:linear-gradient(0deg,#081e2ce6,transparent 62%); } .reveal-stage { grid-template-columns:1fr; gap:8px; } .reveal-stage h2 { max-width:none; } .reveal-stage p { max-width:64ch; } .label-card { margin:12px 8px 26px 0; } .story,.calc-grid,.order-inner { grid-template-columns:1fr; } .story { gap:26px; } .calc-grid { gap:25px; } .order h2 { max-width:none; } .result-jump { display:inline-flex; align-items:center; } }
     @media(max-width:520px) { .mini-nav { gap:12px; font-size:.7rem; } .mast-note { max-width:130px; } .hero-photo { min-height:210px; } .choices { gap:5px; } .choice span { font-size:.84rem; } .choice small { font-size:.7rem; } .input-row { grid-template-columns:1fr; } .story,.calculator-wrap,.order { padding-left:18px; padding-right:18px; } }
     @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .btn { transition:none; } }
   </style>
 </head>
 <body>
   <header class="mast"><img src="data:image/png;base64,{{LOGO_DATA}}" width="500" height="100" alt="Freshfield"><div class="mast-note">CHFA NOW TORONTO <span aria-hidden="true">·</span> 2026</div></header>
-  <nav class="mini-nav" aria-label="Page sections"><a href="#why">Why carry us</a><a href="#calculator">Label math</a><a href="#order">Opening orders</a></nav>
+  <nav class="mini-nav" aria-label="Page sections"><button id="nav-reveal" type="button">The reveal</button><a href="#why">Why carry us</a><a href="#calculator">Label math</a><a href="#order">Opening orders</a></nav>
   <main>
     <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-copy">
         <p class="eyebrow">Magnesium Bisglycinate <span aria-hidden="true">/</span> Freshfield</p>
-        <h1 class="display" id="hero-heading">A clearer story for <em>your shelf.</em></h1>
-        <p class="hero-lead">Unbuffered magnesium bisglycinate with a dose we can explain, from a brand built for people who get outside.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="#why">Why carry Freshfield</a><a class="btn btn-outline" href="#calculator">Try the label math</a></div>
+        <h1 class="display" id="hero-heading">What's behind the <em>big number?</em></h1>
+        <p class="hero-lead">Two bottles can both say “magnesium bisglycinate.” One front label won't tell you the whole formula. See what to look for, then why Freshfield made a different choice.</p>
+        <div class="hero-actions"><button class="btn btn-primary reveal-start" id="reveal-start" type="button">Show me what's behind the number →</button></div>
         <div class="hero-facts" aria-label="Product facts"><span><strong>60.5 mg</strong> per capsule</span><span><strong>121 mg</strong> per 2-capsule daily dose</span><span><a href="https://health-products.canada.ca/lnhpd-bdpsnh/info?licence=80148126" target="_blank" rel="noopener"><strong>NPN 80148126</strong></a></span></div>
       </div>
-      <div class="hero-photo"><img src="data:image/jpeg;base64,{{OUTDOORS_DATA}}" alt="Surfer riding a wave beside a rocky coastline"><span class="photo-tag">Protect where you play</span></div>
+      <div class="hero-photo"><img src="data:image/jpeg;base64,{{OUTDOORS_DATA}}" alt="Surfer riding a wave beside a rocky coastline"></div>
+    </section>
+    <section class="reveal" id="reveal" hidden aria-label="Guided magnesium label-reading demo">
+      <div class="reveal-shell">
+        <div class="reveal-top"><p class="eyebrow" id="reveal-progress" aria-live="polite">The label reveal · 1 of 4</p><button type="button" id="reveal-restart">Start over</button></div>
+        <article class="reveal-stage" id="reveal-front" aria-labelledby="reveal-title">
+          <div><h2 class="display" id="reveal-title" tabindex="-1">A big number. But from what?</h2><p>This is wording from a real Canadian product listing, shown here as a text example, not its packaging. What would you assume from the front-facing claim?</p><button class="btn" id="reveal-turn" type="button">Turn the label over →</button><p class="caption">First, read the promise. Then check the complete medicinal ingredients.</p></div>
+          <div class="label-card"><span class="micro">Front-facing wording · Canadian listing</span><span class="big">200<span style="font-size:.35em">mg</span></span><span class="sub">pure elemental magnesium per capsule</span><div class="divider"></div><span class="micro">Magnesium bis-glycinate</span><p class="fine">“Pure elemental” describes the amount of magnesium, not necessarily a single magnesium source.</p></div>
+        </article>
+        <article class="reveal-stage" id="reveal-label" aria-labelledby="reveal-label-title" hidden>
+          <div><h2 class="display" id="reveal-label-title" tabindex="-1">Now read the actual ingredients.</h2><p>That same product <strong>discloses</strong> two magnesium sources. The 200 mg is an elemental total; it does not mean all 200 mg came from bisglycinate. This is an incomplete first impression, not a claim that the brand concealed oxide.</p><button class="btn" id="reveal-next" type="button">What about an Albion™ label? →</button><p class="caption">Source: <a href="https://canprev.ca/products/magnesium-bis-glycinate-200-gentle-3-2/" target="_blank" rel="noopener">CanPrev Magnesium Bis·Glycinate 200 Gentle, public product listing</a>. The wording above is re-typeset; no competitor artwork is used.</p></div>
+          <div class="label-card"><span class="micro">Medicinal ingredients · each capsule</span><div class="divider"></div><p class="ingredient">Magnesium (<span class="highlight">magnesium bis-glycinate, magnesium oxide</span>) 200 mg</p><p class="fine">Glycine appears separately under non-medicinal ingredients on the same listing. The oxide is disclosed, but not in the front-facing shorthand.</p></div>
+        </article>
+        <article class="reveal-stage" id="reveal-albion" aria-labelledby="reveal-albion-title" hidden>
+          <div><h2 class="display" id="reveal-albion-title" tabindex="-1">Even a trusted ingredient has two versions.</h2><p>Balchem, the maker of Albion™ TRAACS™ magnesium, offers both <strong>Original</strong> and <strong>Buffered</strong> magnesium bisglycinate chelate. Balchem says the buffered version includes magnesium oxide. A supplier mark tells you about the chelate. The full ingredient list tells you about the finished formula.</p><button class="btn" id="reveal-freshfield-next" type="button">So what did Freshfield choose? →</button><p class="caption">Sources: Balchem's <a href="https://balchem.com/hnh/products/mn/mg/magnesium-bisglycinate-chelate/" target="_blank" rel="noopener">Original and Buffered product forms</a>, its <a href="https://balchem.com/hnh/resources/which-magnesium-to-choose/" target="_blank" rel="noopener">buffered explanation</a>, and a <a href="https://canprev.ca/products/magnesium-bis%C2%B7glycinate-140-extra-gentle-2/" target="_blank" rel="noopener">Canadian 140 mg Albion buffered product listing</a>.</p></div>
+          <div><ul class="supplier-lines"><li><strong>Original chelate</strong><span>Unbuffered magnesium bisglycinate, the form Freshfield chose.</span></li><li><strong>Buffered chelate</strong><span>Bisglycinate chelate plus magnesium oxide for a different elemental-density trade-off.</span></li></ul><p class="caption">Both are real Balchem options. TRAACS™ alone does not tell you which version a finished product uses.</p></div>
+        </article>
+        <article class="reveal-stage" id="reveal-freshfield" aria-labelledby="reveal-freshfield-title" hidden>
+          <div><h2 class="display" id="reveal-freshfield-title" tabindex="-1">Our answer: unbuffered.</h2><p>Freshfield uses Balchem's Albion™ TRAACS™ <strong>unbuffered</strong> magnesium bisglycinate. We state the trade-off: <strong>60.5 mg elemental per capsule; 121 mg in two capsules</strong>. We chose the form and a transparent dose over the biggest one-capsule number.</p><p>Not the best fit for someone whose top priority is one capsule or the highest elemental number at the lowest price. A better fit for shoppers who ask exactly what form they're buying.</p><a class="btn" href="#order">Talk opening orders at the booth →</a><p class="caption"><a href="https://health-products.canada.ca/lnhpd-bdpsnh/info?licence=80148126" target="_blank" rel="noopener">Health Canada NPN 80148126</a> lists 60.5 mg per capsule and two capsules daily. Albion™ and TRAACS™ are trademarks of Balchem Corporation or its subsidiaries.</p></div>
+          <div class="label-card freshfield-proof"><span class="micro">Freshfield Magnesium Bisglycinate</span><span class="big">121<span style="font-size:.35em"> mg</span></span><span class="sub">elemental magnesium per 2 capsules</span><span class="per-cap">60.5 mg per capsule</span><div class="divider"></div><span class="micro">Albion™ TRAACS™</span><p class="ingredient">Unbuffered bisglycinate. No magnesium oxide as a medicinal ingredient.</p><p class="source-tag">A clear answer your staff can give in the aisle.</p></div>
+        </article>
+      </div>
     </section>
     <section class="story" id="why" aria-labelledby="why-heading">
       <div><p class="eyebrow">Why it belongs on your shelf</p><h2 class="display" id="why-heading">Give shoppers a clear answer.</h2></div>
       <ol class="story-list">
-        <li><span class="num">01</span><div><h3>A clearly stated form.</h3><p>Our approved formulation uses magnesium bisglycinate chelate without magnesium oxide. The ingredient story is simple enough to show, not just say.</p></div></li>
+        <li><span class="num">01</span><div><h3>A clearly stated form.</h3><p>Balchem's Albion™ TRAACS™ unbuffered magnesium bisglycinate. No magnesium oxide in our medicinal ingredients. The ingredient story is simple enough to show, not just say.</p></div></li>
         <li><span class="num">02</span><div><h3>A dose stated plainly.</h3><p>60.5 mg elemental magnesium per capsule. Two capsules provide the licensed 121 mg daily dose.</p></div></li>
         <li><span class="num">03</span><div><h3>A brand with a world beyond the bottle.</h3><p>Freshfield speaks to people who move outside. Bring that outdoor spirit to the magnesium aisle, with a label conversation your team can own.</p></div></li>
       </ol>
     </section>
     <section class="calculator-wrap" id="calculator" aria-labelledby="calc-heading">
-      <div class="calc-intro"><p class="eyebrow">The label math</p><h2 class="display" id="calc-heading">Ask a better question.</h2><p>Enter the numbers on a capsule label. This is an estimate to guide a conversation about the full medicinal ingredients, not a test of another product's composition or absorption.</p></div>
+      <div class="calc-intro"><p class="eyebrow">For a label you don't know</p><h2 class="display" id="calc-heading">Try the numbers yourself.</h2><p>Want to explore a different bottle? Enter its elemental amount, serving size and an illustrative capsule size. This is an estimate to prompt a full-label check, not a test of another product's composition or absorption. Freshfield's dose and form above are product facts, not a density-based guess.</p></div>
       <div class="calc-shell"><div class="calc-grid">
         <form class="calc-inputs" id="calc-form" autocomplete="off" onsubmit="return false">
-          <div><label class="field-label" for="elemental">Elemental magnesium on the label (mg)<small>Read the amount beside “Magnesium” in the medicinal ingredients.</small></label><div class="input-row"><input type="text" id="elemental" value="60.5" inputmode="decimal" autocomplete="off" required aria-describedby="dose-help"><div id="serving-wrap" class="serving-count" hidden><label class="field-label" for="serving-count">Capsules per serving</label><select id="serving-count"><option value="2">2 capsules</option><option value="3">3 capsules</option><option value="4">4 capsules</option></select></div></div><small id="dose-help" class="field-help">Starts with Freshfield's 60.5 mg capsule. Change it to match any label; a comma or period works for decimals.</small></div>
+          <div><label class="field-label" for="elemental">Elemental magnesium on the label (mg)<small>Read the amount beside “Magnesium” in the medicinal ingredients.</small></label><div class="input-row"><input type="text" id="elemental" value="200" inputmode="decimal" autocomplete="off" required aria-describedby="dose-help"><div id="serving-wrap" class="serving-count" hidden><label class="field-label" for="serving-count">Capsules per serving</label><select id="serving-count"><option value="2">2 capsules</option><option value="3">3 capsules</option><option value="4">4 capsules</option></select></div></div><small id="dose-help" class="field-help">Starts with a 200 mg per-capsule example. Capsule size is illustrative unless confirmed on that bottle. A comma or period works for decimals.</small></div>
           <fieldset><legend>Amount is listed per capsule or serving?</legend><div class="choices two"><label class="choice"><input type="radio" name="basis" value="capsule" checked><span>Capsule</span></label><label class="choice"><input type="radio" name="basis" value="serving"><span>Serving</span></label></div></fieldset>
           <fieldset><legend>Example capsule size (confirm on label)</legend><div class="choices"><label class="choice"><input type="radio" name="capsule" value="0"><span>Size 0<small>0.68 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="00" checked><span>Size 00<small>0.90 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="000"><span>Size 000<small>1.37 mL</small></span></label></div></fieldset>
           <fieldset><legend>Magnesium form being checked</legend><div class="choices"><label class="choice"><input type="radio" name="form" value="bisglycinate" checked><span>Bisglycinate<small>14.1% theoretical</small></span></label><label class="choice"><input type="radio" name="form" value="citrate"><span>Citrate<small>16% theoretical</small></span></label><label class="choice"><input type="radio" name="form" value="oxide"><span>Oxide<small>60% theoretical</small></span></label></div></fieldset>
-          <button class="example-btn" id="freshfield-example" type="button">Load Freshfield example: 60.5 mg, size 00</button><a class="result-jump" href="#result">See the estimate ↓</a>
+          <button class="example-btn" id="reset-example" type="button">Reset to 200 mg example</button><a class="result-jump" href="#result">See the estimate ↓</a>
         </form>
-        <div class="result" id="result" data-status="possible"><p class="result-kicker">Estimate, not a lab test</p><div role="status" aria-live="polite" aria-atomic="true"><h3 class="display verdict" id="verdict"></h3><p id="explanation"></p></div><dl class="math"><div><dt>Elemental per capsule</dt><dd id="row-elemental"></dd></div><div><dt>Theoretical form percentage</dt><dd id="row-percent"></dd></div><div><dt>Minimum powder estimate</dt><dd id="row-powder"></dd></div><div><dt>Illustrative fill range</dt><dd id="row-fill"></dd></div></dl></div>
+        <div class="result" id="result" data-status="possible"><p class="result-kicker">Estimate for an unknown label, not a lab test</p><div role="status" aria-live="polite" aria-atomic="true"><h3 class="display verdict" id="verdict"></h3><p id="explanation"></p></div><dl class="math"><div><dt>Elemental per capsule</dt><dd id="row-elemental"></dd></div><div><dt>Theoretical form percentage</dt><dd id="row-percent"></dd></div><div><dt>Minimum powder estimate</dt><dd id="row-powder"></dd></div><div><dt>Illustrative fill range</dt><dd id="row-fill"></dd></div></dl></div>
       </div></div>
-      <details class="method"><summary>About the assumptions and sources</summary><p>Theoretical percentages use anhydrous chemical composition (bisglycinate 14.1%, citrate 16%, oxide 60%). Actual ingredient grades can assay differently. Capsule sizes specify volume; this example converts volume to a powder-weight range using 0.6–1.0 g/mL. It does not include fillers or measure a specific product.</p><p><a href="https://www.lfacapsulefillers.com/capsule-size-chart" target="_blank" rel="noopener">Capsule size and density reference</a>. For formulas combining forms, read each medicinal ingredient; this single-form estimate cannot determine the blend. Always check serving instructions. No absorption or health outcome can be inferred from this calculation.</p></details>
+      <details class="method"><summary>About the math and human evidence</summary><p>Theoretical percentages use anhydrous chemical composition (bisglycinate 14.1%, citrate 16%, oxide 60%). Actual ingredient grades can assay differently. Capsule sizes specify volume; this example converts volume to a powder-weight range using 0.6–1.0 g/mL. It does not include fillers or measure a specific product. <a href="https://www.lfacapsulefillers.com/capsule-size-chart" target="_blank" rel="noopener">Capsule size and density reference</a>.</p><p><a href="https://europepmc.org/article/MED/14596323" target="_blank" rel="noopener">Walker et al. (2003)</a> found greater urinary magnesium excretion with organic forms than oxide after 60 days in 46 people, while citrate had the highest mean serum values. <a href="https://europepmc.org/article/MED/7815675" target="_blank" rel="noopener">Schuette et al. (1994)</a> found no significant overall fractional-absorption difference between chelate and oxide in 12 people with ileal resection, though a small impaired-absorption subgroup favoured chelate. These studies do not compare Freshfield's finished product with this Canadian label or predict an individual shopper's absorption.</p><p>For formulas combining forms, read each medicinal ingredient; this single-form estimate cannot determine a blend. Always check serving instructions. No absorption or health outcome can be inferred from this calculation.</p></details>
     </section>
-    <section class="order" id="order" aria-labelledby="order-heading"><div class="order-inner"><div><p class="eyebrow">For retailers at CHFA NOW</p><h2 class="display" id="order-heading">Let's get Freshfield on your shelf.</h2></div><div class="order-copy"><p>Ready to carry it? Ask our team for current wholesale terms and we'll write the opening order together. Pricing and terms stay in our normal wholesale process, not on this screen.</p><button class="btn btn-primary" id="order-button" type="button">How to order at the booth</button><p class="after-show">Viewing after the show? <a href="mailto:hello@freshfield.life?subject=Freshfield%20Magnesium%20Retail%20Inquiry">Email Freshfield about retail</a>.</p></div></div></section>
+    <section class="order" id="order" aria-labelledby="order-heading"><div class="order-inner"><div><p class="eyebrow">For retailers at CHFA NOW</p><h2 class="display" id="order-heading">Let's get Freshfield on your shelf.</h2></div><div class="order-copy"><p>Ready to carry it? Ask our team for current wholesale terms and we'll write the opening order together. Pricing and terms stay in our normal seller-led wholesale process, not on this screen.</p><button class="btn btn-primary" id="order-button" type="button">How to order at the booth</button><p class="after-show">Viewing after the show? <a href="mailto:hello@freshfield.life?subject=Freshfield%20Magnesium%20Retail%20Inquiry">Email Freshfield about retail</a>.</p></div></div></section>
   </main>
-  <footer><span>Freshfield Magnesium Bisglycinate · CHFA NOW Toronto 2026</span><span><a href="https://health-products.canada.ca/lnhpd-bdpsnh/info?licence=80148126" target="_blank" rel="noopener">Verify NPN 80148126</a></span></footer>
+  <footer><span>Freshfield Magnesium Bisglycinate · CHFA NOW Toronto 2026<br>Albion™ and TRAACS™ are trademarks of Balchem Corporation or its subsidiaries.</span><span><a href="https://health-products.canada.ca/lnhpd-bdpsnh/info?licence=80148126" target="_blank" rel="noopener">Verify NPN 80148126</a></span></footer>
   <dialog id="order-dialog" aria-labelledby="dialog-title"><h3 id="dialog-title">Let's write the opening order.</h3><p>Show this screen to a Freshfield team member at the booth. We'll confirm the current SKUs, pricing, case pack and delivery details together.</p><button type="button" id="dialog-close">Back to the page</button></dialog>
   <script>
     (() => {
       'use strict';
+      const reveal = document.getElementById('reveal');
+      const stages = ['front','label','albion','freshfield'];
+      function showStage(step) {
+        reveal.hidden = false;
+        stages.forEach((name, i) => {
+          document.getElementById(`reveal-${name}`).hidden = name !== step;
+          if (name === step) document.getElementById('reveal-progress').textContent = `The label reveal · ${i+1} of ${stages.length}`;
+        });
+        reveal.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+        document.getElementById(step === 'front' ? 'reveal-title' : `reveal-${step}-title`).focus({preventScroll:true});
+      }
+      document.getElementById('reveal-start').addEventListener('click', () => showStage('front'));
+      document.getElementById('nav-reveal').addEventListener('click', () => showStage('front'));
+      document.getElementById('reveal-restart').addEventListener('click', () => showStage('front'));
+      document.getElementById('reveal-turn').addEventListener('click', () => showStage('label'));
+      document.getElementById('reveal-next').addEventListener('click', () => showStage('albion'));
+      document.getElementById('reveal-freshfield-next').addEventListener('click', () => showStage('freshfield'));
       const form = document.getElementById('calc-form');
       const elementalInput = document.getElementById('elemental');
       const servingCount = document.getElementById('serving-count');
@@ -183,7 +249,7 @@
           status = 'outside'; verdict = 'Check the full label';
           explanation = `From ${names[formName]} alone, this amount needs at least ${fmt(powder)} mg of powder under the theoretical percentage. That exceeds this illustrative fill range. Check the actual capsule and medicinal ingredients; the math cannot identify another magnesium source.`;
         } else if (powder > low) {
-          status = 'uncertain'; verdict = 'It depends on the fill';
+          status = 'uncertain'; verdict = 'The number alone cannot tell';
           explanation = `The theoretical minimum is ${fmt(powder)} mg of ${names[formName]}. Whether it fits depends on actual powder density, ingredient grade and other ingredients. Read the complete label.`;
         } else {
           status = 'possible'; verdict = 'Could fit in this example';
@@ -197,8 +263,8 @@
       }
       form.addEventListener('input', calculate);
       form.addEventListener('change', calculate);
-      document.getElementById('freshfield-example').addEventListener('click', () => {
-        elementalInput.value = '60.5'; form.querySelector('input[name="basis"][value="capsule"]').checked = true;
+      document.getElementById('reset-example').addEventListener('click', () => {
+        elementalInput.value = '200'; form.querySelector('input[name="basis"][value="capsule"]').checked = true;
         form.querySelector('input[name="capsule"][value="00"]').checked = true;
         form.querySelector('input[name="form"][value="bisglycinate"]').checked = true; calculate();
       });

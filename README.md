@@ -1,11 +1,12 @@
 # Freshfield Magnesium | CHFA NOW Toronto
 
-A standalone retailer presentation page, derived from Freshfield's Magnesium Bisglycinate PDP calculator. It is **not** a Shopify page. The iPad presentation leads with Freshfield's product and brand story, then offers an educational label-math estimate and a seller-led opening-order prompt.
+A standalone retailer presentation page, derived from Freshfield's Magnesium Bisglycinate PDP calculator. It is **not** a Shopify page. The iPad presentation opens with one large button and a four-step label-reading reveal: a sourced Canadian front-facing 200 mg claim, its disclosed ingredients, Balchem's Original/Buffered distinction, and Freshfield's unbuffered two-capsule trade-off. The seller-led opening-order prompt closes the journey. A freeform label-math calculator is available afterward for unknown labels.
 
 - `template.html` is the editable source. `python3 build.py` embeds the official Freshfield white/teal logo, Freshfield display font and an existing Freshfield outdoor photo into `index.html`. This makes the HTML self-contained.
-- `sw.js` caches the page after its first online visit, enabling an offline revisit. Test on the actual iPad in Airplane Mode before the event.
+- `sw.js` caches the page after its first online visit, enabling an offline revisit at either the directory URL or `/index.html`. Open the page once online and test on the actual iPad in Airplane Mode before the event.
 - Calculator assumptions: theoretical anhydrous percentages (bisglycinate 14.1%, citrate 16%, oxide 60%); capsule volumes 0.68, 0.90, 1.37 mL for sizes 0, 00, 000; illustrative powder-density range 0.6–1.0 g/mL from the linked [capsule size chart](https://www.lfacapsulefillers.com/capsule-size-chart). These are **not** tests of a competing product's purity, absorption, or ingredients.
-- Freshfield example: 60.5 mg elemental per capsule, size 00, as in the approved internal formula. The page does **not** publish proprietary formula weights or actual supplier assay.
+- Freshfield's confirmed product facts are shown in the guided reveal, **not** as a density-based calculator result: Balchem Albion™ TRAACS™ unbuffered bisglycinate, 60.5 mg elemental per capsule, 121 mg per two-capsule serving. The calculator defaults to a separate 200 mg illustrative unknown-label example. The page does **not** publish proprietary formula weights or actual supplier assay.
+- Run `python3 -m unittest discover -s tests -v` and `node tests/test_sw.cjs` before rebuilding with `python3 build.py`. `node tests/browser_flow.cjs` exercises the page in a local headless Chrome CDP session (Chrome on port 9224, local HTTP server on 8766), including iPad viewports, all reveal steps and an offline reload.
 - Source: the Magnesium Bisglycinate Canada PDP calculator as observed on 2026-09-25. The PDP itself is not changed by this repo.
 
 Do not use an old PDP bottle mockup as a hero asset until its NPN artwork is checked against the live licence. The current page instead embeds Freshfield's own outdoor photo. Internal formulation and claim-audit notes stay outside this public repository.

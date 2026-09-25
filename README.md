@@ -1,10 +1,11 @@
-# Freshfield Magnesium Reality Check
+# Freshfield Magnesium | CHFA NOW Toronto
 
-Standalone, single-file presentation page for CHFA Now Toronto. The calculator markup and calculation script were copied from the live Freshfield Magnesium Bisglycinate Canada PDP on 2026-09-25. The original `lp-base.css` and `lp-calculator.css` were embedded, along with the Freshfield display font and the storefront's official `H-Logo-White.png` asset. Tablet-specific spacing and touch-target rules are additive.
+A standalone retailer presentation page, derived from Freshfield's Magnesium Bisglycinate PDP calculator. It is **not** a Shopify page. The iPad presentation leads with Freshfield's product and brand story, then offers an educational label-math estimate and a seller-led opening-order prompt.
 
-- Entry point: `index.html` (self-contained); `sw.js` caches it for offline revisits after the first online load. On the iPad, open the public URL once while connected, then verify it in Airplane Mode before the show.
-- Original: https://freshfield.life/products/magnesium-bisglycinate-ca#reality-check
-- Input is elemental magnesium **per capsule**.
-- Capsule capacities and filler headroom are approximate; the verdict follows the PDP's existing logic and is not laboratory verification of a competitor's formula.
+- `template.html` is the editable source. `python3 build.py` embeds the official Freshfield white/teal logo, Freshfield display font and an existing Freshfield outdoor photo into `index.html`. This makes the HTML self-contained.
+- `sw.js` caches the page after its first online visit, enabling an offline revisit. Test on the actual iPad in Airplane Mode before the event.
+- Calculator assumptions: theoretical anhydrous percentages (bisglycinate 14.1%, citrate 16%, oxide 60%); capsule volumes 0.68, 0.90, 1.37 mL for sizes 0, 00, 000; illustrative powder-density range 0.6–1.0 g/mL from the linked [capsule size chart](https://www.lfacapsulefillers.com/capsule-size-chart). These are **not** tests of a competing product's purity, absorption, or ingredients.
+- Freshfield example: 60.5 mg elemental per capsule, size 00, as in the approved internal formula. The page does **not** publish proprietary formula weights or actual supplier assay.
+- Source: the Magnesium Bisglycinate Canada PDP calculator as observed on 2026-09-25. The PDP itself is not changed by this repo.
 
-For future updates, copy any changed calculator markup/script/CSS from the PDP and retest all four verdicts. The local `build.py` used for this event embeds the copied source and is intentionally not published.
+Do not use an old PDP bottle mockup as a hero asset until its NPN artwork is checked against the live licence. The current page instead embeds Freshfield's own outdoor photo. Internal formulation and claim-audit notes stay outside this public repository.

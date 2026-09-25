@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0F2A3A">
+  <meta name="description" content="Freshfield Magnesium Bisglycinate for retailers. Explore our unbuffered formula and learn how to read the magnesium math on a label.">
+  <title>Freshfield Magnesium | CHFA NOW Toronto</title>
+  <style>
+    @font-face { font-family: FreshfieldDisplay; src: url(data:font/woff2;base64,{{FONT_DATA}}) format('woff2'); font-display: swap; }
+    :root { --navy:#0F2A3A; --navy2:#1F3D52; --cream:#E8DCBE; --paper:#F7F4ED; --teal:#63A9A7; --ink:#14222E; --muted:#4F5E6C; --line:#DBD3BF; --gold:#DDB945; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:"Source Sans 3","Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.5; }
+    button,input,select { font:inherit; }
+    a { color:inherit; }
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+    .display { font-family:FreshfieldDisplay,"Arial Narrow",sans-serif; font-weight:400; text-transform:uppercase; letter-spacing:.01em; line-height:.94; }
+    .eyebrow { margin:0; text-transform:uppercase; font-size:.73rem; font-weight:750; letter-spacing:.2em; }
+    .mast { background:var(--navy); color:var(--cream); padding:12px max(24px,calc((100vw - 1240px)/2)); display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .mast img { width:225px; height:45px; display:block; object-fit:contain; }
+    .mast-note { font-size:.72rem; font-weight:700; text-align:right; letter-spacing:.16em; text-transform:uppercase; }
+    .mini-nav { display:flex; gap:22px; padding:0 max(24px,calc((100vw - 1240px)/2)); background:#183548; color:var(--cream); font-size:.8rem; font-weight:650; letter-spacing:.04em; }
+    .mini-nav a { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; border-bottom:1px solid transparent; }
+    .mini-nav a:hover,.mini-nav a:focus-visible { border-color:var(--gold); }
+    .hero { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); min-height:482px; background:var(--navy); color:var(--cream); overflow:hidden; }
+    .hero-copy { max-width:760px; width:100%; margin-left:auto; padding:clamp(30px,4vw,56px) clamp(26px,5vw,74px) 34px max(24px,calc((100vw - 1240px)/2)); display:flex; flex-direction:column; justify-content:center; }
+    .hero .eyebrow,.order .eyebrow { color:#9bdbd5; }
+    .hero h1 { font-size:clamp(3.2rem,6.5vw,6.1rem); max-width:11ch; margin:18px 0; }
+    .hero h1 em { color:var(--gold); font-style:normal; }
+    .hero-lead { font-size:clamp(1.03rem,1.5vw,1.25rem); max-width:48ch; margin:0 0 24px; color:#e7e6db; }
+    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:11px 22px; border-radius:40px; font-size:.94rem; font-weight:750; text-decoration:none; border:2px solid transparent; cursor:pointer; transition:transform .15s,background .15s; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary { background:var(--cream); color:var(--navy); }
+    .btn-outline { color:var(--cream); border-color:#a3b4b3; background:transparent; }
+    .hero-facts { display:flex; flex-wrap:wrap; column-gap:24px; row-gap:4px; margin-top:25px; padding-top:16px; border-top:1px solid #5c7480; color:var(--cream); font-size:.89rem; }
+    .hero-facts strong { color:#fff; font-weight:750; }
+    .hero-facts a { text-underline-offset:3px; }
+    .hero-photo { position:relative; min-height:350px; }
+    .hero-photo img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; object-position:center 45%; }
+    .hero-photo:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--navy) 0%,transparent 27%),linear-gradient(0deg,#081e2ce6,transparent 52%); }
+    .photo-tag { position:absolute; bottom:26px; right:30px; z-index:1; color:#fff; font-family:FreshfieldDisplay,"Arial Narrow",sans-serif; font-size:clamp(1.65rem,2.8vw,2.65rem); line-height:1; text-transform:uppercase; text-align:right; max-width:10ch; text-shadow:0 2px 12px #081e2c,0 1px 3px #081e2c; }
+    .story { display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr); gap:clamp(25px,5vw,75px); max-width:1240px; margin:auto; padding:clamp(45px,6vw,75px) 24px; }
+    .story .eyebrow,.calc-intro .eyebrow { color:#285481; }
+    .story h2,.calc-intro h2,.order h2 { font-size:clamp(2.4rem,4vw,4.3rem); margin:12px 0 0; }
+    .story-list { margin:0; padding:0; list-style:none; }
+    .story-list li { display:grid; grid-template-columns:40px 1fr; gap:14px; padding:13px 0 17px; border-top:1px solid var(--line); }
+    .story-list li:last-child { border-bottom:1px solid var(--line); }
+    .story-list .num { color:#4779B5; font-family:FreshfieldDisplay,"Arial Narrow",sans-serif; font-size:1.6rem; line-height:1; }
+    .story-list h3 { margin:0 0 3px; font-size:1.07rem; }
+    .story-list p { margin:0; color:var(--muted); font-size:.97rem; }
+    .calculator-wrap { padding:clamp(48px,6vw,80px) 24px; background:#ede9dd; }
+    .calc-intro { max-width:1040px; margin:0 auto 22px; }
+    .calc-intro h2 { margin-bottom:12px; }
+    .calc-intro p:last-child { max-width:76ch; color:var(--muted); margin:0; }
+    .calc-shell { max-width:1040px; margin:auto; background:var(--white); border:1px solid var(--line); border-radius:16px; padding:clamp(20px,3vw,34px); box-shadow:0 14px 45px -34px #0f2a3a80; }
+    .calc-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.95fr); gap:clamp(24px,3.5vw,44px); }
+    .calc-inputs { display:grid; gap:20px; align-content:start; }
+    .field-label,fieldset legend { display:block; color:var(--navy); text-transform:uppercase; font-size:.79rem; font-weight:800; letter-spacing:.12em; margin-bottom:8px; }
+    .field-label small { display:block; font-size:.82rem; font-weight:400; text-transform:none; letter-spacing:0; color:var(--muted); margin-top:3px; }
+    #elemental,select { width:100%; min-height:52px; padding:10px 14px; border:1.5px solid #b9b4a7; border-radius:8px; background:#fff; color:var(--ink); font-size:1.1rem; }
+    fieldset { border:0; padding:0; margin:0; min-width:0; }
+    .choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+    .choices.two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .choice { display:block; position:relative; min-width:0; cursor:pointer; }
+    .choice input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; margin:0; }
+    .choice span { display:flex; min-height:58px; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:7px 5px; border:1.5px solid var(--line); border-radius:8px; color:var(--ink); font-weight:700; line-height:1.15; }
+    .choice small { font-size:.79rem; font-weight:400; color:var(--muted); margin-top:3px; }
+    .choice input:checked+span { border-color:#4779B5; background:#edf3f7; box-shadow:inset 0 0 0 1px #4779B5; }
+    .choice input:focus-visible+span { outline:3px solid var(--gold); outline-offset:2px; }
+    .input-row { display:grid; grid-template-columns:1.4fr 1fr; gap:12px; }
+    .serving-count[hidden] { display:none; }
+    .example-btn { justify-self:start; min-height:44px; background:#edf3f7; border:1.5px solid #4779B5; border-radius:24px; padding:9px 15px; color:#285481; font-size:.89rem; font-weight:700; cursor:pointer; }
+    .result-jump { display:none; min-height:44px; padding:10px 0; color:#285481; font-weight:700; text-underline-offset:3px; }
+    .result { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:clamp(18px,2.5vw,28px); align-self:stretch; }
+    .result-kicker { margin:0 0 11px; color:var(--muted); text-transform:uppercase; font-size:.73rem; font-weight:800; letter-spacing:.14em; }
+    .verdict { margin:0 0 14px; font-size:clamp(1.65rem,2.7vw,2.35rem); }
+    .result[data-status=possible] .verdict { color:#236b48; }
+    .result[data-status=uncertain] .verdict { color:#8a6100; }
+    .result[data-status=outside] .verdict { color:#a3392b; }
+    .result p { margin:0 0 14px; font-size:.98rem; }
+    .math { margin:18px 0 0; }
+    .math div { display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-top:1px dashed var(--line); }
+    .math dt { color:var(--muted); }
+    .math dd { margin:0; font-weight:750; font-variant-numeric:tabular-nums; text-align:right; }
+    .method { max-width:1040px; margin:15px auto 0; color:var(--muted); font-size:.83rem; }
+    .method summary { cursor:pointer; font-weight:750; color:var(--navy); padding:7px 0; }
+    .method p { margin:5px 0; }
+    .method a { text-underline-offset:2px; }
+    .order { background:var(--navy); color:var(--cream); padding:clamp(50px,7vw,88px) 24px; }
+    .order-inner { max-width:1240px; margin:auto; display:grid; grid-template-columns:1fr 1fr; gap:35px; align-items:end; }
+
+    .order h2 { max-width:13ch; }
+    .order-copy { max-width:45ch; }
+    .order p { color:#e4e1d1; font-size:1.07rem; }
+    .order .btn { margin-top:6px; }
+    .order .after-show { font-size:.86rem; margin:14px 0 0; }
+    footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:14px; padding:22px max(24px,calc((100vw - 1240px)/2)); background:#081e2c; color:#c8d2d0; font-size:.83rem; }
+    footer a { display:inline-flex; align-items:center; min-height:44px; text-underline-offset:2px; }
+    dialog { border:0; border-radius:12px; max-width:420px; width:calc(100% - 36px); padding:28px; color:var(--ink); box-shadow:0 20px 80px #0006; }
+    dialog::backdrop { background:#081e2ccc; }
+    dialog h3 { font-size:1.5rem; margin:0 0 12px; }
+    dialog p { margin:0 0 20px; }
+    dialog button { min-height:44px; padding:8px 22px; border:0; border-radius:30px; color:#fff; background:var(--navy); cursor:pointer; }
+    @media(max-width:780px) { .mast img { width:170px; height:34px; } .mast-note { font-size:.63rem; } .hero { grid-template-columns:1fr; } .hero-copy { padding:38px 24px 28px; max-width:none; } .hero h1 { font-size:clamp(3.2rem,10vw,5.1rem); } .hero-photo { min-height:260px; } .hero-photo:after { background:linear-gradient(0deg,#081e2ce6,transparent 62%); } .story,.calc-grid,.order-inner { grid-template-columns:1fr; } .story { gap:26px; } .calc-grid { gap:25px; } .order h2 { max-width:none; } .result-jump { display:inline-flex; align-items:center; } }
+    @media(max-width:520px) { .mini-nav { gap:12px; font-size:.7rem; } .mast-note { max-width:130px; } .hero-photo { min-height:210px; } .choices { gap:5px; } .choice span { font-size:.84rem; } .choice small { font-size:.7rem; } .input-row { grid-template-columns:1fr; } .story,.calculator-wrap,.order { padding-left:18px; padding-right:18px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .btn { transition:none; } }
+  </style>
+</head>
+<body>
+  <header class="mast"><img src="data:image/png;base64,{{LOGO_DATA}}" width="500" height="100" alt="Freshfield"><div class="mast-note">CHFA NOW TORONTO <span aria-hidden="true">·</span> 2026</div></header>
+  <nav class="mini-nav" aria-label="Page sections"><a href="#why">Why carry us</a><a href="#calculator">Label math</a><a href="#order">Opening orders</a></nav>
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <p class="eyebrow">Magnesium Bisglycinate <span aria-hidden="true">/</span> Freshfield</p>
+        <h1 class="display" id="hero-heading">A clearer story for <em>your shelf.</em></h1>
+        <p class="hero-lead">Unbuffered magnesium bisglycinate with a dose we can explain, from a brand built for people who get outside.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#why">Why carry Freshfield</a><a class="btn btn-outline" href="#calculator">Try the label math</a></div>
+        <div class="hero-facts" aria-label="Product facts"><span><strong>60.5 mg</strong> per capsule</span><span><strong>121 mg</strong> per 2-capsule daily dose</span><span><a href="https://health-products.canada.ca/lnhpd-bdpsnh/info?licence=80148126" target="_blank" rel="noopener"><strong>NPN 80148126</strong></a></span></div>
+      </div>
+      <div class="hero-photo"><img src="data:image/jpeg;base64,{{OUTDOORS_DATA}}" alt="Surfer riding a wave beside a rocky coastline"><span class="photo-tag">Protect where you play</span></div>
+    </section>
+    <section class="story" id="why" aria-labelledby="why-heading">
+      <div><p class="eyebrow">Why it belongs on your shelf</p><h2 class="display" id="why-heading">Give shoppers a clear answer.</h2></div>
+      <ol class="story-list">
+        <li><span class="num">01</span><div><h3>A clearly stated form.</h3><p>Our approved formulation uses magnesium bisglycinate chelate without magnesium oxide. The ingredient story is simple enough to show, not just say.</p></div></li>
+        <li><span class="num">02</span><div><h3>A dose stated plainly.</h3><p>60.5 mg elemental magnesium per capsule. Two capsules provide the licensed 121 mg daily dose.</p></div></li>
+        <li><span class="num">03</span><div><h3>A brand with a world beyond the bottle.</h3><p>Freshfield speaks to people who move outside. Bring that outdoor spirit to the magnesium aisle, with a label conversation your team can own.</p></div></li>
+      </ol>
+    </section>
+    <section class="calculator-wrap" id="calculator" aria-labelledby="calc-heading">
+      <div class="calc-intro"><p class="eyebrow">The label math</p><h2 class="display" id="calc-heading">Ask a better question.</h2><p>Enter the numbers on a capsule label. This is an estimate to guide a conversation about the full medicinal ingredients, not a test of another product's composition or absorption.</p></div>
+      <div class="calc-shell"><div class="calc-grid">
+        <form class="calc-inputs" id="calc-form" autocomplete="off" onsubmit="return false">
+          <div><label class="field-label" for="elemental">Elemental magnesium on the label (mg)<small>Read the amount beside “Magnesium” in the medicinal ingredients.</small></label><div class="input-row"><input type="text" id="elemental" value="60.5" inputmode="decimal" autocomplete="off" required aria-describedby="dose-help"><div id="serving-wrap" class="serving-count" hidden><label class="field-label" for="serving-count">Capsules per serving</label><select id="serving-count"><option value="2">2 capsules</option><option value="3">3 capsules</option><option value="4">4 capsules</option></select></div></div><small id="dose-help" class="field-help">Starts with Freshfield's 60.5 mg capsule. Change it to match any label; a comma or period works for decimals.</small></div>
+          <fieldset><legend>Amount is listed per capsule or serving?</legend><div class="choices two"><label class="choice"><input type="radio" name="basis" value="capsule" checked><span>Capsule</span></label><label class="choice"><input type="radio" name="basis" value="serving"><span>Serving</span></label></div></fieldset>
+          <fieldset><legend>Example capsule size (confirm on label)</legend><div class="choices"><label class="choice"><input type="radio" name="capsule" value="0"><span>Size 0<small>0.68 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="00" checked><span>Size 00<small>0.90 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="000"><span>Size 000<small>1.37 mL</small></span></label></div></fieldset>
+          <fieldset><legend>Magnesium form being checked</legend><div class="choices"><label class="choice"><input type="radio" name="form" value="bisglycinate" checked><span>Bisglycinate<small>14.1% theoretical</small></span></label><label class="choice"><input type="radio" name="form" value="citrate"><span>Citrate<small>16% theoretical</small></span></label><label class="choice"><input type="radio" name="form" value="oxide"><span>Oxide<small>60% theoretical</small></span></label></div></fieldset>
+          <button class="example-btn" id="freshfield-example" type="button">Load Freshfield example: 60.5 mg, size 00</button><a class="result-jump" href="#result">See the estimate ↓</a>
+        </form>
+        <div class="result" id="result" data-status="possible"><p class="result-kicker">Estimate, not a lab test</p><div role="status" aria-live="polite" aria-atomic="true"><h3 class="display verdict" id="verdict"></h3><p id="explanation"></p></div><dl class="math"><div><dt>Elemental per capsule</dt><dd id="row-elemental"></dd></div><div><dt>Theoretical form percentage</dt><dd id="row-percent"></dd></div><div><dt>Minimum powder estimate</dt><dd id="row-powder"></dd></div><div><dt>Illustrative fill range</dt><dd id="row-fill"></dd></div></dl></div>
+      </div></div>
+      <details class="method"><summary>About the assumptions and sources</summary><p>Theoretical percentages use anhydrous chemical composition (bisglycinate 14.1%, citrate 16%, oxide 60%). Actual ingredient grades can assay differently. Capsule sizes specify volume; this example converts volume to a powder-weight range using 0.6–1.0 g/mL. It does not include fillers or measure a specific product.</p><p><a href="https://www.lfacapsulefillers.com/capsule-size-chart" target="_blank" rel="noopener">Capsule size and density reference</a>. For formulas combining forms, read each medicinal ingredient; this single-form estimate cannot determine the blend. Always check serving instructions. No absorption or health outcome can be inferred from this calculation.</p></details>
+    </section>
+    <section class="order" id="order" aria-labelledby="order-heading"><div class="order-inner"><div><p class="eyebrow">For retailers at CHFA NOW</p><h2 class="display" id="order-heading">Let's get Freshfield on your shelf.</h2></div><div class="order-copy"><p>Ready to carry it? Ask our team for current wholesale terms and we'll write the opening order together. Pricing and terms stay in our normal wholesale process, not on this screen.</p><button class="btn btn-primary" id="order-button" type="button">How to order at the booth</button><p class="after-show">Viewing after the show? <a href="mailto:hello@freshfield.life?subject=Freshfield%20Magnesium%20Retail%20Inquiry">Email Freshfield about retail</a>.</p></div></div></section>
+  </main>
+  <footer><span>Freshfield Magnesium Bisglycinate · CHFA NOW Toronto 2026</span><span><a href="https://health-products.canada.ca/lnhpd-bdpsnh/info?licence=80148126" target="_blank" rel="noopener">Verify NPN 80148126</a></span></footer>
+  <dialog id="order-dialog" aria-labelledby="dialog-title"><h3 id="dialog-title">Let's write the opening order.</h3><p>Show this screen to a Freshfield team member at the booth. We'll confirm the current SKUs, pricing, case pack and delivery details together.</p><button type="button" id="dialog-close">Back to the page</button></dialog>
+  <script>
+    (() => {
+      'use strict';
+      const form = document.getElementById('calc-form');
+      const elementalInput = document.getElementById('elemental');
+      const servingCount = document.getElementById('serving-count');
+      const servingWrap = document.getElementById('serving-wrap');
+      const result = document.getElementById('result');
+      const percentages = {bisglycinate:.141, citrate:.16, oxide:.60};
+      const names = {bisglycinate:'bisglycinate', citrate:'citrate', oxide:'oxide'};
+      const volumes = {'0':.68, '00':.90, '000':1.37};
+      const fmt = (n, digits=0) => new Intl.NumberFormat('en-CA',{maximumFractionDigits:digits}).format(n);
+      const selected = name => form.querySelector(`input[name="${name}"]:checked`).value;
+      const set = (id, text) => { document.getElementById(id).textContent = text; };
+      function calculate() {
+        const basis = selected('basis');
+        servingWrap.hidden = basis !== 'serving';
+        const raw = elementalInput.value.trim();
+        const value = /^[0-9]+([.,][0-9]{1,2})?$/.test(raw) ? Number(raw.replace(',','.')) : NaN;
+        if (!Number.isFinite(value) || value < .1 || value > 2000) {
+          result.dataset.status = 'uncertain'; set('verdict','Enter a label amount'); set('explanation','Enter 0.1 to 2,000 mg, with up to two decimal places. Do not use thousands separators.');
+          ['row-elemental','row-percent','row-powder','row-fill'].forEach(id=>set(id,'—')); return;
+        }
+        const perCap = value / (basis === 'serving' ? Number(servingCount.value) : 1);
+        const formName = selected('form');
+        const pct = percentages[formName];
+        const volume = volumes[selected('capsule')];
+        const powder = perCap / pct;
+        const low = volume * 600;
+        const high = volume * 1000;
+        let status, verdict, explanation;
+        if (powder > high) {
+          status = 'outside'; verdict = 'Check the full label';
+          explanation = `From ${names[formName]} alone, this amount needs at least ${fmt(powder)} mg of powder under the theoretical percentage. That exceeds this illustrative fill range. Check the actual capsule and medicinal ingredients; the math cannot identify another magnesium source.`;
+        } else if (powder > low) {
+          status = 'uncertain'; verdict = 'It depends on the fill';
+          explanation = `The theoretical minimum is ${fmt(powder)} mg of ${names[formName]}. Whether it fits depends on actual powder density, ingredient grade and other ingredients. Read the complete label.`;
+        } else {
+          status = 'possible'; verdict = 'Could fit in this example';
+          explanation = `The theoretical minimum is ${fmt(powder)} mg of ${names[formName]}. This could fit in the illustrative range, but the calculation cannot verify purity or rule out other ingredients.`;
+        }
+        result.dataset.status = status; set('verdict',verdict); set('explanation',explanation);
+        set('row-elemental',`${fmt(perCap,2)} mg`);
+        set('row-percent',`${fmt(pct*100,1)}%`);
+        set('row-powder',`${fmt(powder)} mg`);
+        set('row-fill',`${fmt(low)}–${fmt(high)} mg`);
+      }
+      form.addEventListener('input', calculate);
+      form.addEventListener('change', calculate);
+      document.getElementById('freshfield-example').addEventListener('click', () => {
+        elementalInput.value = '60.5'; form.querySelector('input[name="basis"][value="capsule"]').checked = true;
+        form.querySelector('input[name="capsule"][value="00"]').checked = true;
+        form.querySelector('input[name="form"][value="bisglycinate"]').checked = true; calculate();
+      });
+      const dialog = document.getElementById('order-dialog');
+      document.getElementById('order-button').addEventListener('click', () => dialog.showModal());
+      document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+      calculate();
+      if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+    })();
+  </script>
+</body>
+</html>

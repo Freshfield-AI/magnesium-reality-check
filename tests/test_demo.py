@@ -32,10 +32,35 @@ class DemoContract(unittest.TestCase):
         tag, attrs = self.element('reveal-start')
         self.assertEqual(tag, 'button')
         self.assertEqual(attrs['type'], 'button')
-        self.assertIn('Show me what', TEMPLATE)
+        self.assertIn("Show me what's actually in it", TEMPLATE)
         self.assertIn("getElementById('reveal-start').addEventListener('click'", TEMPLATE)
         self.element('reveal')
         self.assertRegex(TEMPLATE, r'\.reveal-start\s*\{[^}]*min-height:\s*(?:6[0-9]|[7-9][0-9])px')
+
+    def test_hero_passes_retailer_grunt_test(self):
+        hero = re.search(r'<section class="hero".*?</section>', TEMPLATE, flags=re.S)
+        assert hero is not None
+        self.assertIn('magnesium glycinate', hero.group(0).lower())
+        self.assertIn('unbuffered', hero.group(0).lower())
+        self.assertIn('opening order', hero.group(0).lower())
+        self.assertNotIn("What's behind the", hero.group(0))
+
+    def test_reveal_names_the_two_unknowns_without_diagnosing_deception(self):
+        stage = re.search(r'id="reveal-label".*?</article>', TEMPLATE, flags=re.S)
+        assert stage is not None
+        visible = re.sub(r'<[^>]+>', '', stage.group(0)).lower()
+        self.assertIn('how much', visible)
+        self.assertIn('from each source', visible)
+        self.assertIn('absorb', visible)
+        self.assertNotIn('deceiv', visible)
+        self.assertNotIn('does nothing', visible)
+        self.assertIn('https://europepmc.org/article/MED/35253448', stage.group(0))
+        self.assertIn('this label discloses', visible)
+        self.assertIn('including freshfield', visible)
+        self.assertNotIn('glycine appears separately', visible)
+        freshfield = re.search(r'id="reveal-freshfield".*?</article>', TEMPLATE, flags=re.S)
+        assert freshfield is not None
+        self.assertIn('cannot tell', freshfield.group(0).lower())
 
     def test_real_label_reveal_discloses_oxide_and_source(self):
         self.element('reveal-turn')

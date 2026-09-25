@@ -39,8 +39,9 @@ async function main() {
     await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:2,mobile:true});
     await send('Page.navigate',{url:`${BASE}?qa=${width}x${height}`});
     await new Promise(r => setTimeout(r, 1000));
-    const first = await evalJS(`(() => {let b=document.querySelector('#reveal-start').getBoundingClientRect();return {width:innerWidth,height:innerHeight,buttonBottom:b.bottom,buttonWidth:b.width,hidden:document.querySelector('#reveal').hidden,overflow:document.documentElement.scrollWidth>innerWidth,defaultDose:document.querySelector('#elemental').value,verdict:document.querySelector('#verdict').textContent}})()`);
+    const first = await evalJS(`(() => {let b=document.querySelector('#reveal-start').getBoundingClientRect();let o=document.querySelector('.hero-order-link').getBoundingClientRect();return {width:innerWidth,height:innerHeight,buttonBottom:b.bottom,buttonWidth:b.width,orderBottom:o.bottom,hidden:document.querySelector('#reveal').hidden,overflow:document.documentElement.scrollWidth>innerWidth,defaultDose:document.querySelector('#elemental').value,verdict:document.querySelector('#verdict').textContent}})()`);
     assert(first.buttonBottom <= height, `CTA above fold at ${width}x${height}: ${JSON.stringify(first)}`);
+    assert(first.orderBottom <= height, `Opening-order link above fold at ${width}x${height}: ${JSON.stringify(first)}`);
     assert(first.buttonWidth >= 220 && !first.overflow && first.hidden);
     assert.equal(first.defaultDose, '200');
     assert.equal(first.verdict, 'Check the full label');

@@ -39,21 +39,27 @@ async function main() {
     await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:2,mobile:true});
     await send('Page.navigate',{url:`${BASE}?qa=${width}x${height}`});
     await new Promise(r => setTimeout(r, 1000));
-    const first = await evalJS(`(() => {let b=document.querySelector('#reveal-start').getBoundingClientRect();let o=document.querySelector('.hero-order-link').getBoundingClientRect();return {width:innerWidth,height:innerHeight,buttonBottom:b.bottom,buttonWidth:b.width,orderBottom:o.bottom,hidden:document.querySelector('#reveal').hidden,overflow:document.documentElement.scrollWidth>innerWidth,defaultDose:document.querySelector('#elemental').value,verdict:document.querySelector('#verdict').textContent}})()`);
+    const first = await evalJS(`(() => {let b=document.querySelector('#reveal-start').getBoundingClientRect();let o=document.querySelector('.hero-order-link').getBoundingClientRect();let f=document.querySelector('.hero-facts').getBoundingClientRect();return {width:innerWidth,height:innerHeight,buttonBottom:b.bottom,buttonWidth:b.width,orderBottom:o.bottom,factsBottom:f.bottom,hidden:document.querySelector('#reveal').hidden,overflow:document.documentElement.scrollWidth>innerWidth,defaultDose:document.querySelector('#elemental').value,verdict:document.querySelector('#verdict').textContent}})()`);
     assert(first.buttonBottom <= height, `CTA above fold at ${width}x${height}: ${JSON.stringify(first)}`);
     assert(first.orderBottom <= height, `Opening-order link above fold at ${width}x${height}: ${JSON.stringify(first)}`);
+    if (width >= 768) assert(first.factsBottom <= height, `Product facts above fold at ${width}x${height}: ${JSON.stringify(first)}`);
     assert(first.buttonWidth >= 220 && !first.overflow && first.hidden);
     assert.equal(first.defaultDose, '200');
     assert.equal(first.verdict, 'Check the full label');
     if (width === 1024) await screenshot('hero-landscape');
     const buttons = ['reveal-start','reveal-turn','reveal-next','reveal-freshfield-next'];
-    const expected = ['reveal-front','reveal-label','reveal-albion','reveal-freshfield'];
+    const expected = ['reveal-front','reveal-label','reveal-absorption','reveal-freshfield'];
     for (let i=0;i<buttons.length;i++) {
-      const state=await evalJS(`(() => {document.getElementById('${buttons[i]}').click();return {visible:[...document.querySelectorAll('.reveal-stage')].filter(e=>!e.hidden).map(e=>e.id),progress:document.querySelector('#reveal-progress').textContent,focus:document.activeElement.id,overflow:document.documentElement.scrollWidth>innerWidth}})()`);
+      await evalJS(`document.getElementById('${buttons[i]}').click()`);
+      await new Promise(r => setTimeout(r, 900));
+      const state=await evalJS(`(() => {let stage=[...document.querySelectorAll('.reveal-stage')].find(e=>!e.hidden);return {visible:[stage.id],progress:document.querySelector('#reveal-progress').textContent,focus:document.activeElement.id,overflow:document.documentElement.scrollWidth>innerWidth,nextBottom:stage.querySelector('.btn').getBoundingClientRect().bottom}})()`);
       assert.deepEqual(state.visible,[expected[i]], `${width} stage ${i}`);
       assert.match(state.progress,new RegExp(`${i+1} of 4`));
       assert(!state.overflow, `no horizontal overflow at ${width}, stage ${i}`);
+      if (width >= 768) assert(state.nextBottom <= height, `Next action visible at ${width}x${height}, stage ${i}: ${JSON.stringify(state)}`);
       if (width === 768 && i === 1) await screenshot('label-portrait');
+      if (width === 1024 && i === 2) await screenshot('absorption-landscape');
+      if (width === 768 && i === 2) await screenshot('absorption-portrait');
       if (width === 1024 && i === 3) await screenshot('freshfield-landscape');
     }
     const returnState=await evalJS(`(() => {document.querySelector('#reveal-restart').click();return [...document.querySelectorAll('.reveal-stage')].filter(e=>!e.hidden).map(e=>e.id)})()`);
@@ -66,7 +72,7 @@ async function main() {
   await send('Network.enable');
   const worker = await evalJS(`(async () => {await navigator.serviceWorker.ready;return {controller:!!navigator.serviceWorker.controller,keys:await caches.keys()}})()`);
   assert(worker.controller,'service worker controls the opened page');
-  assert(worker.keys.includes('freshfield-magnesium-chfa-v4'));
+  assert(worker.keys.includes('freshfield-magnesium-chfa-v5'));
   await send('Network.emulateNetworkConditions',{offline:true,latency:0,downloadThroughput:0,uploadThroughput:0});
   await send('Page.navigate',{url:`${BASE}?offline=1`});
   await new Promise(r => setTimeout(r,1000));

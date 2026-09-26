@@ -106,16 +106,32 @@
     .example-btn { justify-self:start; min-height:44px; background:#edf3f7; border:1.5px solid #4779B5; border-radius:24px; padding:9px 15px; color:#285481; font-size:.89rem; font-weight:700; cursor:pointer; }
     .result-jump { display:none; min-height:44px; padding:10px 0; color:#285481; font-weight:700; text-underline-offset:3px; }
     .result { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:clamp(18px,2.5vw,28px); align-self:stretch; }
-    .result-kicker { margin:0 0 11px; color:var(--muted); text-transform:uppercase; font-size:.73rem; font-weight:800; letter-spacing:.14em; }
-    .verdict { margin:0 0 14px; font-size:clamp(1.65rem,2.7vw,2.35rem); }
-    .result[data-status=possible] .verdict { color:#236b48; }
+    .result[data-status=outside] { border:3px solid #a3392b; background:#fff7f3; }
+    .result-kicker { margin:0 0 8px; color:var(--muted); text-transform:uppercase; font-size:.72rem; font-weight:800; letter-spacing:.08em; }
+    .verdict { margin:0 0 12px; font-size:clamp(1.55rem,2.5vw,2.1rem); }
+    .result[data-status=possible] .verdict { color:var(--navy); }
     .result[data-status=uncertain] .verdict { color:#8a6100; }
     .result[data-status=outside] .verdict { color:#a3392b; }
     .result p { margin:0 0 14px; font-size:.98rem; }
+    .result-compare { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:12px; }
+    .result-compare div { min-width:0; border:1px solid var(--line); border-radius:8px; background:#fff; padding:10px 12px; }
+    .result-compare span { display:block; min-height:28px; color:var(--muted); text-transform:uppercase; font-size:.68rem; font-weight:800; line-height:1.2; letter-spacing:.05em; }
+    .result-compare strong { display:block; color:var(--navy); font-size:clamp(1.55rem,3vw,2.2rem); line-height:1.05; margin-top:4px; font-variant-numeric:tabular-nums; }
+    .result .result-gap { color:var(--muted); font-size:1.08rem; font-weight:800; line-height:1.3; margin:0 0 8px; }
+    .result[data-status=outside] .result-gap { color:#a3392b; }
+    .result #explanation { margin:0 0 10px; }
     .math { margin:18px 0 0; }
     .math div { display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-top:1px dashed var(--line); }
     .math dt { color:var(--muted); }
     .math dd { margin:0; font-weight:750; font-variant-numeric:tabular-nums; text-align:right; }
+    .calc-details { margin-top:10px; font-size:.82rem; }
+    .calc-details summary { min-height:44px; display:flex; align-items:center; cursor:pointer; font-weight:750; color:var(--navy); }
+    .result-choice { margin-top:12px; border-radius:10px; padding:13px 15px; background:var(--navy); color:var(--cream); }
+    .result-choice[hidden] { display:none; }
+    .result-choice .choice-kicker { display:block; color:#a8e1dd; text-transform:uppercase; font-size:.65rem; font-weight:800; letter-spacing:.06em; margin-bottom:4px; }
+    .result-choice strong { display:block; color:#fff; font-size:1.08rem; }
+    .result-choice p { margin:5px 0 8px; }
+    .result-choice a { color:var(--gold); font-weight:750; text-underline-offset:3px; }
     .method { max-width:1040px; margin:15px auto 0; color:var(--muted); font-size:.83rem; }
     .method summary { cursor:pointer; font-weight:750; color:var(--navy); padding:7px 0; }
     .method p { margin:5px 0; }
@@ -184,16 +200,16 @@
       </ol>
     </section>
     <section class="calculator-wrap" id="calculator" aria-labelledby="calc-heading">
-      <div class="calc-intro"><p class="eyebrow">For a label you don't know</p><h2 class="display" id="calc-heading">Try the numbers yourself.</h2><p>Want to explore a different bottle? Enter its elemental amount, serving size and an illustrative capsule size. This is an estimate to prompt a full-label check, not a test of another product's composition or absorption. Freshfield's dose and form above are product facts, not a density-based guess.</p></div>
+      <div class="calc-intro"><p class="eyebrow">A generic label-math illustration</p><h2 class="display" id="calc-heading">Does the big number fit?</h2><p>See what an elemental-magnesium claim would require if it came from one form alone. Choose a dose and an illustrative capsule size; the result answers the math and shows the single-source option Freshfield chose. This is not a test of another product's composition or absorption.</p></div>
       <div class="calc-shell"><div class="calc-grid">
         <form class="calc-inputs" id="calc-form" autocomplete="off" onsubmit="return false">
           <div><label class="field-label" for="elemental">Elemental magnesium on the label (mg)<small>Read the amount beside “Magnesium” in the medicinal ingredients.</small></label><div class="input-row"><input type="text" id="elemental" value="200" inputmode="decimal" autocomplete="off" required aria-describedby="dose-help"><div id="serving-wrap" class="serving-count" hidden><label class="field-label" for="serving-count">Capsules per serving</label><select id="serving-count"><option value="2">2 capsules</option><option value="3">3 capsules</option><option value="4">4 capsules</option></select></div></div><small id="dose-help" class="field-help">Starts with a 200 mg per-capsule example. Capsule size is illustrative unless confirmed on that bottle. A comma or period works for decimals.</small></div>
           <fieldset><legend>Amount is listed per capsule or serving?</legend><div class="choices two"><label class="choice"><input type="radio" name="basis" value="capsule" checked><span>Capsule</span></label><label class="choice"><input type="radio" name="basis" value="serving"><span>Serving</span></label></div></fieldset>
-          <fieldset><legend>Example capsule size (confirm on label)</legend><div class="choices"><label class="choice"><input type="radio" name="capsule" value="0"><span>Size 0<small>0.68 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="00" checked><span>Size 00<small>0.90 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="000"><span>Size 000<small>1.37 mL</small></span></label></div></fieldset>
+          <fieldset><legend>Illustrative capsule size, not a fact about another brand</legend><div class="choices"><label class="choice"><input type="radio" name="capsule" value="0"><span>Size 0<small>0.68 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="00" checked><span>Size 00<small>0.90 mL</small></span></label><label class="choice"><input type="radio" name="capsule" value="000"><span>Size 000<small>1.37 mL</small></span></label></div></fieldset>
           <fieldset><legend>Magnesium form being checked</legend><div class="choices"><label class="choice"><input type="radio" name="form" value="bisglycinate" checked><span>Bisglycinate<small>14.1% theoretical</small></span></label><label class="choice"><input type="radio" name="form" value="citrate"><span>Citrate<small>16% theoretical</small></span></label><label class="choice"><input type="radio" name="form" value="oxide"><span>Oxide<small>60% theoretical</small></span></label></div></fieldset>
           <button class="example-btn" id="reset-example" type="button">Reset to 200 mg example</button><a class="result-jump" href="#result">See the estimate ↓</a>
         </form>
-        <div class="result" id="result" data-status="possible"><p class="result-kicker">Estimate for an unknown label, not a lab test</p><div role="status" aria-live="polite" aria-atomic="true"><h3 class="display verdict" id="verdict"></h3><p id="explanation"></p></div><dl class="math"><div><dt>Elemental per capsule</dt><dd id="row-elemental"></dd></div><div><dt>Theoretical form percentage</dt><dd id="row-percent"></dd></div><div><dt>Minimum powder estimate</dt><dd id="row-powder"></dd></div><div><dt>Illustrative fill range</dt><dd id="row-fill"></dd></div></dl></div>
+        <div class="result" id="result" data-status="possible"><p class="result-kicker" id="result-assumption">Generic size-00 example, not based on any named bottle</p><div role="status" aria-live="polite" aria-atomic="true"><h3 class="display verdict" id="verdict"></h3><div class="result-compare"><div><span id="result-claim-label">Elemental per capsule</span><strong id="result-claim"></strong></div><div><span id="result-maximum-label">Most bisglycinate could supply here</span><strong id="result-maximum"></strong></div></div><p class="result-gap" id="result-gap"></p><p id="explanation"></p></div><div class="result-choice" id="result-choice"><span class="choice-kicker">Separate Freshfield product fact, not this estimate</span><strong>Want one stated magnesium source?</strong><p>Freshfield uses unbuffered Albion™ TRAACS™ bisglycinate, no oxide blend. 121 mg in two capsules.</p><a href="#order">Talk opening orders at the booth →</a></div><details class="calc-details" id="calc-details"><summary>See the math and assumptions</summary><dl class="math"><div><dt>Elemental per capsule</dt><dd id="row-elemental"></dd></div><div><dt>Theoretical form percentage</dt><dd id="row-percent"></dd></div><div><dt>Minimum powder if from this form alone</dt><dd id="row-powder"></dd></div><div><dt>Illustrative total fill range</dt><dd id="row-fill"></dd></div><div><dt>Most this form could supply at the assumed maximum fill</dt><dd id="row-ceiling"></dd></div></dl></details></div>
       </div></div>
       <details class="method"><summary>About the math and human evidence</summary><p>Theoretical percentages use anhydrous chemical composition (bisglycinate 14.1%, citrate 16%, oxide 60%). Actual ingredient grades can assay differently. Capsule sizes specify volume; this example converts volume to a powder-weight range using 0.6–1.0 g/mL. It does not include fillers or measure a specific product. <a href="https://www.lfacapsulefillers.com/capsule-size-chart" target="_blank" rel="noopener">Capsule size and density reference</a>.</p><p><a href="https://europepmc.org/article/MED/14596323" target="_blank" rel="noopener">Walker et al. (2003)</a> found greater urinary magnesium excretion with organic forms than oxide after 60 days in 46 people, while citrate had the highest mean serum values. <a href="https://europepmc.org/article/MED/7815675" target="_blank" rel="noopener">Schuette et al. (1994)</a> found no significant overall fractional-absorption difference between chelate and oxide in 12 people with ileal resection, though a small impaired-absorption subgroup favoured chelate. These studies do not compare Freshfield's finished product with this Canadian label or predict an individual shopper's absorption.</p><p>For formulas combining forms, read each medicinal ingredient; this single-form estimate cannot determine a blend. Always check serving instructions. No absorption or health outcome can be inferred from this calculation.</p></details>
     </section>
@@ -226,6 +242,7 @@
       const servingCount = document.getElementById('serving-count');
       const servingWrap = document.getElementById('serving-wrap');
       const result = document.getElementById('result');
+      const resultChoice = document.getElementById('result-choice');
       const percentages = {bisglycinate:.141, citrate:.16, oxide:.60};
       const names = {bisglycinate:'bisglycinate', citrate:'citrate', oxide:'oxide'};
       const volumes = {'0':.68, '00':.90, '000':1.37};
@@ -235,35 +252,51 @@
       function calculate() {
         const basis = selected('basis');
         servingWrap.hidden = basis !== 'serving';
+        const capsule = selected('capsule');
+        const volume = volumes[capsule];
+        const low = volume * 600;
+        const high = volume * 1000;
+        set('result-assumption',`Generic size-${capsule} example (${volume.toFixed(2)} mL, 0.6–1.0 g/mL), not based on any named bottle's actual size or fill`);
+        set('result-claim-label',basis === 'serving' ? 'Elemental per capsule (converted from serving)' : 'Elemental per capsule');
+        const formName = selected('form');
+        set('result-maximum-label',`Most ${names[formName]} could supply here`);
+        resultChoice.hidden = formName !== 'bisglycinate';
         const raw = elementalInput.value.trim();
         const value = /^[0-9]+([.,][0-9]{1,2})?$/.test(raw) ? Number(raw.replace(',','.')) : NaN;
         if (!Number.isFinite(value) || value < .1 || value > 2000) {
           result.dataset.status = 'uncertain'; set('verdict','Enter a label amount'); set('explanation','Enter 0.1 to 2,000 mg, with up to two decimal places. Do not use thousands separators.');
-          ['row-elemental','row-percent','row-powder','row-fill'].forEach(id=>set(id,'—')); return;
+          ['row-elemental','row-percent','row-powder','row-fill','row-ceiling','result-claim','result-maximum'].forEach(id=>set(id,'—')); set('result-gap',''); resultChoice.hidden = true; return;
         }
         const perCap = value / (basis === 'serving' ? Number(servingCount.value) : 1);
-        const formName = selected('form');
         const pct = percentages[formName];
-        const volume = volumes[selected('capsule')];
         const powder = perCap / pct;
-        const low = volume * 600;
-        const high = volume * 1000;
+        const maxElemental = high * pct;
         let status, verdict, explanation;
-        if (powder > high) {
-          status = 'outside'; verdict = 'Check the full label';
-          explanation = `From ${names[formName]} alone, this amount needs at least ${fmt(powder)} mg of powder under the theoretical percentage. That exceeds this illustrative fill range. Check the actual capsule and medicinal ingredients; the math cannot identify another magnesium source.`;
+        if (powder > high * 1.05) {
+          status = 'outside'; verdict = `${names[formName][0].toUpperCase()+names[formName].slice(1)} alone does not fit this example`;
+          set('result-gap',`At least ${fmt(Math.floor(perCap-maxElemental))} mg elemental per capsule would need another magnesium source under these assumptions.`);
+          explanation = `${fmt(perCap,2)} mg from ${names[formName]} alone needs at least ${fmt(powder)} mg powder, versus ${fmt(high)} mg total capacity at the assumed maximum density. This is not an oxide estimate for any named product; no actual capsule size or fill was used.`;
+        } else if (powder > high) {
+          status = 'uncertain'; verdict = 'Near the illustrative limit';
+          set('result-gap','A small change in actual powder density could change this result.');
+          explanation = `${fmt(perCap,2)} mg from ${names[formName]} alone would need ${fmt(powder)} mg powder, just above the assumed ${fmt(high)} mg capacity. This is too close to the illustrative limit to infer another magnesium source.`;
         } else if (powder > low) {
-          status = 'uncertain'; verdict = 'The number alone cannot tell';
-          explanation = `The theoretical minimum is ${fmt(powder)} mg of ${names[formName]}. Whether it fits depends on actual powder density, ingredient grade and other ingredients. Read the complete label.`;
+          status = 'uncertain'; verdict = 'The number does not prove the form';
+          set('result-gap','A label number cannot show the source split.');
+          explanation = `This would need at least ${fmt(powder)} mg of ${names[formName]} alone. It could fit only toward the denser end of this illustrative ${fmt(low)}–${fmt(high)} mg fill range. The amount on a label still cannot prove which magnesium sources supply it or how much is absorbed.`;
         } else {
-          status = 'possible'; verdict = 'Could fit in this example';
-          explanation = `The theoretical minimum is ${fmt(powder)} mg of ${names[formName]}. This could fit in the illustrative range, but the calculation cannot verify purity or rule out other ingredients.`;
+          status = 'possible'; verdict = 'The math fits, but cannot prove the form';
+          set('result-gap','A fit on paper is not proof of a single-source formula.');
+          explanation = `The minimum ${fmt(powder)} mg of ${names[formName]} needed could fit in this illustrative capsule. That does not establish a single-source formula, the actual blend or how much magnesium the body absorbs.`;
         }
         result.dataset.status = status; set('verdict',verdict); set('explanation',explanation);
+        set('result-claim',`${fmt(perCap,2)} mg`);
+        set('result-maximum',`${fmt(maxElemental)} mg`);
         set('row-elemental',`${fmt(perCap,2)} mg`);
         set('row-percent',`${fmt(pct*100,1)}%`);
         set('row-powder',`${fmt(powder)} mg`);
         set('row-fill',`${fmt(low)}–${fmt(high)} mg`);
+        set('row-ceiling',`${fmt(maxElemental)} mg`);
       }
       form.addEventListener('input', calculate);
       form.addEventListener('change', calculate);

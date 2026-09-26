@@ -22,12 +22,13 @@ const context = {
   await store('freshfield-magnesium-chfa-v3').put(page,{body:'OLD'});
   await store('freshfield-magnesium-chfa-v4').put(page,{body:'PREVIOUS'});
   await store('freshfield-magnesium-chfa-v5').put(page,{body:'OLDER'});
+  await store('freshfield-magnesium-chfa-v6').put(page,{body:'LAST'});
   vm.runInNewContext(fs.readFileSync(path.resolve(__dirname,'../sw.js'),'utf8'),context);
   let installed;
   listeners.install({waitUntil:p=>installed=p}); await installed;
   let activated;
   listeners.activate({waitUntil:p=>activated=p}); await activated;
-  assert.deepEqual([...stores.keys()],['freshfield-magnesium-chfa-v6']);
+  assert.deepEqual([...stores.keys()],['freshfield-magnesium-chfa-v7']);
   assert.equal(context.claimed,true);
   let responsePromise;
   listeners.fetch({request:{url:page+'?offline=1',mode:'navigate'},respondWith:p=>responsePromise=p,waitUntil:()=>{}});
@@ -39,5 +40,5 @@ const context = {
   let intercepted=false;
   listeners.fetch({request:{url:page+'sw.js',mode:'navigate'},respondWith:()=>intercepted=true});
   assert.equal(intercepted,false);
-  console.log('SW PASS: v3/v4/v5 deleted, v6 claimed, offline page served, sw.js not intercepted');
+  console.log('SW PASS: v3-v6 deleted, v7 claimed, offline page served, sw.js not intercepted');
 })().catch(e=>{console.error(e);process.exitCode=1;});

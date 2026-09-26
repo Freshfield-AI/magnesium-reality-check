@@ -1,4 +1,4 @@
-const CACHE = 'freshfield-magnesium-chfa-v5';
+const CACHE = 'freshfield-magnesium-chfa-v6';
 const PAGE = new URL('./', self.registration.scope).href;
 const PAGE_URL = new URL(PAGE);
 

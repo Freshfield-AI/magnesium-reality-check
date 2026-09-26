@@ -43,7 +43,7 @@ class DemoContract(unittest.TestCase):
         self.assertIn('magnesium glycinate', hero.group(0).lower())
         self.assertIn('unbuffered', hero.group(0).lower())
         self.assertIn('Know the source', hero.group(0))
-        self.assertIn('human absorption studies', hero.group(0))
+        self.assertIn('what the label tells you', hero.group(0))
         self.assertIn('opening order', hero.group(0).lower())
         self.assertNotIn("What's behind the", hero.group(0))
 
@@ -60,7 +60,7 @@ class DemoContract(unittest.TestCase):
         self.assertNotIn('glycine appears separately', visible)
         freshfield = re.search(r'id="reveal-freshfield".*?</article>', TEMPLATE, flags=re.S)
         assert freshfield is not None
-        self.assertIn('cannot promise', freshfield.group(0).lower())
+        self.assertIn('no head-to-head study', freshfield.group(0).lower())
 
     def test_real_label_reveal_discloses_oxide_and_source(self):
         self.element('reveal-turn')
@@ -80,22 +80,26 @@ class DemoContract(unittest.TestCase):
         self.assertIn('TRAACS™', TEMPLATE)
         self.assertIn('trademarks of Balchem Corporation or its subsidiaries', TEMPLATE)
 
-    def test_guided_reveal_answers_oxide_rate_with_study_context_not_a_product_prediction(self):
+    def test_main_reveal_separates_absorbed_dose_from_optional_study_rates(self):
         tag, _ = self.element('reveal-absorption')
         self.assertEqual(tag, 'article')
         stage = re.search(r'id="reveal-absorption".*?</article>', TEMPLATE, flags=re.S)
         assert stage is not None
-        text = re.sub(r'<[^>]+>', ' ', stage.group(0)).lower()
-        first_copy = re.sub(r'<[^>]+>', ' ', stage.group(0).split('</div>', 1)[0]).lower()
-        self.assertIn('4% absorption', first_copy)
-        self.assertIn('22.8%', text)
-        self.assertIn('23.5%', first_copy)
-        self.assertIn('no significant overall difference', first_copy)
-        self.assertIn('different', text)
-        self.assertIn('not a rate for this bottle', text)
-        self.assertIn('https://europepmc.org/article/MED/11794633', stage.group(0))
-        self.assertIn('https://europepmc.org/article/MED/7815675', stage.group(0))
-        self.assertNotIn('4–22.8%', stage.group(0))
+        main = re.sub(r'<details\b.*?</details>', '', stage.group(0), flags=re.S)
+        main_text = re.sub(r'<[^>]+>', ' ', main).lower()
+        self.assertIn('not 200 mg absorbed', main_text)
+        self.assertIn('cannot be calculated from the label', main_text)
+        self.assertNotIn('4%', main_text)
+        self.assertNotIn('22.8%', main_text)
+        self.assertNotIn('23.5%', main_text)
+        evidence = re.search(r'<details[^>]*id="absorption-evidence".*?</details>', stage.group(0), flags=re.S)
+        assert evidence is not None
+        self.assertIn('4%', evidence.group(0))
+        self.assertIn('23.5%', evidence.group(0))
+        self.assertIn('22.8%', evidence.group(0))
+        self.assertIn('https://europepmc.org/article/MED/11794633', evidence.group(0))
+        self.assertIn('https://europepmc.org/article/MED/7815675', evidence.group(0))
+        self.assertIn('https://europepmc.org/article/MED/29123461', evidence.group(0))
 
     def test_nonaccusatory_copy_and_footer_attribution(self):
         self.assertNotIn('oxide padding', TEMPLATE.lower())
@@ -106,6 +110,10 @@ class DemoContract(unittest.TestCase):
         meta = re.search(r'<meta name="description" content="(.*?)">', TEMPLATE)
         assert meta is not None
         self.assertNotIn('TRAACS', meta.group(1))
+        self.assertNotIn('buffered chelate', meta.group(1))
+        self.assertNotIn('canprev.ca/products/magnesium-bis%C2%B7glycinate-140-extra-gentle-2/', TEMPLATE)
+        public_copy = re.sub(r'<details\b.*?</details>', '', TEMPLATE, flags=re.S).lower()
+        self.assertNotRegex(public_copy, r'better absorbed|more absorbable|superior absorption')
 
     def test_freshfield_is_product_proof_not_a_fill_estimate(self):
         self.element('reveal-freshfield')
@@ -116,9 +124,11 @@ class DemoContract(unittest.TestCase):
         self.assertNotIn('likely pure', TEMPLATE.lower())
         self.assertNotIn('4x better', TEMPLATE.lower())
         self.assertIn('What your team can say:', TEMPLATE)
-        self.assertIn('lower dose and one extra capsule', TEMPLATE)
-        self.assertIn('cannot promise how much any individual absorbs', TEMPLATE)
-        self.assertIn('No assumed absorption figure', TEMPLATE)
+        self.assertIn('lower elemental number', TEMPLATE)
+        self.assertIn('We chose one source', TEMPLATE)
+        self.assertIn('no oxide blend', TEMPLATE.lower())
+        self.assertNotIn("We won't pretend", TEMPLATE)
+        self.assertIn('no head-to-head study', TEMPLATE.lower())
 
     def test_calculator_defaults_to_unknown_200mg_example(self):
         self.element('elemental')

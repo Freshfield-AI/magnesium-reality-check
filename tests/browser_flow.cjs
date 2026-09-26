@@ -72,7 +72,7 @@ async function main() {
   await send('Network.enable');
   const worker = await evalJS(`(async () => {await navigator.serviceWorker.ready;return {controller:!!navigator.serviceWorker.controller,keys:await caches.keys()}})()`);
   assert(worker.controller,'service worker controls the opened page');
-  assert(worker.keys.includes('freshfield-magnesium-chfa-v5'));
+  assert(worker.keys.includes('freshfield-magnesium-chfa-v6'));
   await send('Network.emulateNetworkConditions',{offline:true,latency:0,downloadThroughput:0,uploadThroughput:0});
   await send('Page.navigate',{url:`${BASE}?offline=1`});
   await new Promise(r => setTimeout(r,1000));
